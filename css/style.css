@@ -6,12 +6,13 @@
 
 :root {
     /* Hệ màu tối (Dark Mode) cao cấp phù hợp với 3D Artist */
-    --bg-main: #1a1a1a;          /* Màu nền chính của toàn bộ trang web */
+    --bg-main: hsl(0, 0%, 95%);          /* Màu nền chính của toàn bộ trang web */
     --bg-card: #121214;          /* Màu nền của các ô Card, Khung nội dung */
     --bg-card-hover: #1a1a1e;    /* Màu nền Card khi di chuột vào */
     --color-primary: #3b82f6;    /* Màu xanh chủ đạo (Accent Blue) */
-    --color-text: #f4f4f5;       /* Màu chữ chính (Trắng sáng) */
-    --color-text-muted: #808080; /* Màu chữ phụ/mô tả (Xám giảm tương phản) */
+    --color-text: hsl(0, 0%, 20%);       /* Màu chữ chính (Trắng sáng) */
+    --color-text-muted-1: hsl(0, 0%, 20%); /* Màu chữ phụ/mô tả (Xám giảm tương phản) */
+    --color-text-muted-2: hsl(0, 0%, 80%);
     --max-width: 1200px;         /* Chiều rộng tối đa của nội dung trang web */
     --transition: all 0.3s ease; /* Hiệu ứng chuyển cảnh mượt mà chung */
 }
@@ -39,7 +40,7 @@ body {
 section, article {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 80px 20px;          /* Khoảng cách trên/dưới tạo khoảng thở cho thiết kế */
+    /* padding: 80px 20px;          Khoảng cách trên/dưới tạo khoảng thở cho thiết kế */
 }
 
 /* ==========================================================================
@@ -59,7 +60,7 @@ section, article {
 /* Định dạng các thẻ Badge (Nhãn phụ nằm trên tiêu đề) */
 [class^="badge-"], .hero-badge {
     display: inline-block;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(143, 186, 255, 0.1);
     color: var(--color-primary);
     padding: 6px 12px;
     border-radius: 20px;
@@ -118,9 +119,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0px 40px 0 20px;
     z-index: 1000;
     border-bottom: 1px solid #1c1c1f;
+}
+
+header .logo img {
+    width: 3em;
+    height: 3em;
+    margin: 3em 0 2.5em 0;
 }
 
 /* Sắp xếp thứ tự chuẩn trên MÁY TÍNH (Desktop) */
@@ -157,14 +164,15 @@ header {
 /* Định dạng Menu chữ trên Máy tính */
 .nav-list {
     display: flex;
-    gap: 30px;
+    gap: 50px;
     list-style: none;
+    margin-left: 5em;
 }
 .nav-link {
-    color: #808080;
+    color: hsl(0, 0%, 90%);
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 .nav-link:hover, .nav-link.active {
@@ -174,9 +182,9 @@ header {
    4. PHẦN GIỚI THIỆU ĐẦU TRANG (HERO SECTION)
    ========================================================================== */
 .hero-section {
-    padding-top: 150px;          /* Đẩy khoảng cách xuống để tránh bị Menu Header đè lên */
+    padding-top: 18em;          /* Đẩy khoảng cách xuống để tránh bị Menu Header đè lên */
     text-align: center;          /* Căn giữa toàn bộ nội dung Hero */
-    max-width: 800px;            /* Bóp hẹp lại một chút nhìn bố cục chữ sẽ đẹp hơn */
+    max-width: 80vw;            /* Bóp hẹp lại một chút nhìn bố cục chữ sẽ đẹp hơn */
 }
 
 .hero-title {
@@ -188,7 +196,7 @@ header {
 }
 
 .hero-description {
-    color: var(--color-text-muted);
+    color: var(--color-text-muted-1);
     font-size: 1.15rem;
     margin-bottom: 35px;
 }
@@ -204,48 +212,45 @@ header {
 /* ==========================================================================
    5. PHẦN GIỚI THIỆU BẢN THÂN (ABOUT SECTION)
    ========================================================================== */
+.about-container {
+    max-width: 100%;            /* Trải rộng toàn màn hình để đổ nền đen */
+    margin-top: 16em;
+    color: #ffffff;             /* Chuyển toàn bộ chữ mặc định thành màu trắng */
+    background-color: rgba(22, 22, 24, 0.9); /* Màu đen 90% siêu sang trọng */
+    padding: 80px 40px;         /* Giới hạn nội dung gọn vào giữa */
+}
+
 .about-section {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr; /* Chia 2 cột: Trái chứa ảnh, Phải chứa chữ */
-    gap: 60px;
-    align-items: center;
-}
-
-.about-header-group {
-    margin-bottom: 20px;
-}
-
-.about-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-}
-
-.about-description {
-    color: var(--color-text-muted);
-    margin-bottom: 20px;
-}
-
-/* Danh sách các tính năng/thế mạnh nổi bật */
-.features-list {
-    list-style: none;
-    margin-top: 30px;
-}
-
-.feature-item {
+    max-width: 1200px; 
+    margin: 0 auto;
     display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+    align-items: center;        /* Căn cột ảnh và cột chữ bằng nhau theo chiều dọc */
+    gap: 60px;                  /* Khoảng cách giữa ảnh và chữ */
 }
 
-.feature-content h3 {
-    font-size: 1.1rem;
-    color: #fff;
-    margin-bottom: 5px;
+/* --- CỘT TRÁI: HÌNH ẢNH --- */
+.about-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
-.feature-content p {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+.about-image-wrapper {
+    position: relative;
+}
+
+/* Hiệu ứng vòng tròn đứt nét xung quanh ảnh nghệ thuật */
+.about-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 240px;
+    height: 240px;
+    border: 2px dashed #3b82f6; /* Viền neon xanh tương phản mạnh trên nền đen */
+    border-radius: 50%;
+    animation: rotateCircle 20s linear infinite;
+    z-index: 1;
 }
 
 /* Tối ưu ảnh Avatar gốc của bạn */
@@ -256,7 +261,99 @@ header {
     border-radius: 50%;
     display: block;
     margin: 0 auto;
-    border: 4px solid #1c1c1f;   /* Tạo viền sang trọng bọc quanh avatar */
+    border: 4px solid hsl(0, 0%, 10%);   /* Tạo viền sang trọng bọc quanh avatar */
+    background: hsl(0, 0%, 90%); /* Nền đen cho avatar nếu ảnh chưa load kịp */
+}
+
+
+.about-header-group {
+    margin-bottom: 20px;
+}
+
+.about-title {
+    font-size: 2.4rem;
+    color: #ffffff;             /* Tiêu đề trắng sáng nổi bật */
+    margin: 0;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;             /* Màu xám trắng dịu mắt, dễ đọc trên nền tối */
+    margin: 0;
+}
+
+/* Danh sách các tính năng/thế mạnh nổi bật */
+.features-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0;
+}
+
+/* .feature-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+} */
+
+.feature-content h3 {
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 3px;
+    margin-top: 1em;
+}
+
+.feature-content p {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* --- ĐỊNH DẠNG NÚT XEM CHI TIẾT (SEE DETAILS) --- */
+.about-actions {
+    margin-top: 1em;
+}
+
+.btn-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #ffffff;        /* Nút màu trắng nổi bật rực rỡ trên nền đen */
+    color: #161618;             /* Chữ màu tối sâu */
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-read-more:hover {
+    background: #3b82f6;        /* Chuyển sang xanh neon khi di chuột vào */
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+.icon-arrow-down {
+    transition: transform 0.3s ease;
+}
+
+.btn-read-more:hover .icon-arrow-down {
+    transform: translateY(3px); /* Mũi tên trượt nhẹ xuống khi hover tạo hiệu ứng dẫn lối */
+}
+
+/* Hoạt ảnh xoay viền tròn */
+@keyframes rotateCircle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* ==========================================================================
@@ -590,7 +687,7 @@ header {
    10. CHÂN TRANG (FOOTER) & BACK TO TOP (Giữ lại cấu trúc nguyên bản)
    ========================================================================== */
 .main-footer {
-    background: #000000;
+    background: hsl(0, 0%, 10%);
     padding: 60px 0 30px 0;
     border-top: 1px solid #1c1c1f;
 }
@@ -696,19 +793,21 @@ header {
    ========================================================================== */
 
 /* --- TABLET VIEW (Màn hình nhỏ hơn 992px) --- */
+
+
 @media (max-width: 992px) {
     body { font-size: 15px; }
 
-    header { padding: 0 20px; }
+    header { padding: 0 30px 0 10px }
     
     .hero-title { font-size: 2.8rem; }
     
     /* Chuyển các Layout Grid 2-3 cột thành 2 cột hoặc hàng dọc */
-    .about-section {
-        grid-template-columns: 1fr; /* Ảnh lên trên, chữ xuống dưới */
+    /* .about-section {
+        grid-template-columns: 1fr; Ảnh lên trên, chữ xuống dưới
         gap: 40px;
         text-align: center;
-    }
+    } */
     
     .about-image { width: 260px; height: 260px; }
     
@@ -722,10 +821,49 @@ header {
 
 /* --- MOBILE VIEW (Màn hình nhỏ hơn 768px) --- */
 @media (max-width: 768px) {
+
+    .about-container {
+        padding: 60px 20px;
+    }
+    
+    .about-section {
+        flex-direction: column; /* Xếp dọc: Ảnh ở trên, Chữ ở dưới trên điện thoại */
+        gap: 40px;
+        text-align: center;
+    }
+
+    .about-image-wrapper::before {
+        width: 180px;
+        height: 180px;
+    }
+
+    .about-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .features-list {
+        text-align: left;       /* Giữ phần liệt kê kỹ năng căn lề trái cho gọn gàng */
+    }
+    
+    .btn-read-more {
+        width: 100%;            /* Nút bấm full màn hình trên điện thoại giúp dễ tương tác */
+        justify-content: center;
+    }
+
 /* 1. ẨN NÚT DOWNLOAD TRÊN DESKTOP */
     .desktop-only {
         display: none;
     }
+    
+    .menu-toggle svg line, .menu-toggle svg {
+        stroke: #ffffff !important; /* Đổi màu viền nét vẽ thành trắng */
+    }
+
+    .menu-close svg line, .menu-close svg {
+        stroke: #ffffff !important; /* Đổi màu viền nét vẽ thành trắng */
+    }
+
 
     /* ĐỔI THỨ TỰ HIỂN THỊ TRÊN DI ĐỘNG BẰNG CSS ORDER */
     .logo         { order: 1; }
@@ -755,7 +893,7 @@ header {
         right: -100%; /* Giấu menu sang bên phải màn hình */
         width: 100%;
         height: 100vh;
-        background: #0d0d0f; /* Nền tối sang trọng giống Cỏ Dại */
+        background: hsla(240, 10%, 10%, 0.95); /* Nền tối sang trọng giống Cỏ Dại */
         z-index: 2000;       /* Nổi lên trên cùng đè cả nút back-to-top */
         display: flex;
         flex-direction: column;
@@ -823,7 +961,10 @@ header {
         padding: 0 20px;
     }
     
-    .hero-section { padding-top: 40px; }
+    .hero-section { 
+        padding-top: 40px; 
+        margin-top: 14em; 
+    }
     
     .hero-title { font-size: 2.2rem; }
     
