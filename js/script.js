@@ -48,3 +48,55 @@ if (menuClose) {
 navLinks.forEach(link => {
     link.addEventListener("click", closeMenu);
 });
+
+// --- XỬ LÝ GỬI FORM LIÊN HỆ QUA EMAIL ---
+const form = document.getElementById('contactForm');
+
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Chặn không cho trang web bị reload lại
+        
+        const formData = new FormData(form);
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Thay đổi trạng thái nút bấm trong lúc đợi gửi
+        submitBtn.innerHTML = "<span>Sending...</span>";
+        submitBtn.style.opacity = "0.7";
+        submitBtn.disabled = true;
+
+        // Gửi dữ liệu lên hệ thống Web3Forms
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        // THÊM CHỮ async VÀO NGAY TRƯỚC (response) DƯỚI ĐÂY:
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                // Nếu gửi thành công
+                submitBtn.innerHTML = "<span>Message Sent! ✓</span>";
+                submitBtn.style.background = "#22c55e"; // Đổi nút sang màu xanh lá
+                form.reset(); // Xóa sạch chữ vừa nhập trong form
+            } else {
+                // Nếu có lỗi hệ thống
+                console.log(response);
+                submitBtn.innerHTML = "<span>Error! Try again</span>";
+                submitBtn.style.background = "#ef4444"; // Đổi nút sang màu đỏ
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            submitBtn.innerHTML = "<span>Network Error</span>";
+        })
+        .then(() => {
+            // Sau 4 giây đưa nút bấm trở lại trạng thái ban đầu
+            setTimeout(() => {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.style.background = ""; // Trả lại màu CSS cũ
+                submitBtn.style.opacity = "1";
+                submitBtn.disabled = false;
+            }, 4000);
+        });
+    });
+}
